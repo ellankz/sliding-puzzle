@@ -1,0 +1,351 @@
+@import './normalize';
+@import './fonts';
+
+$color-white: #ffffff;
+* {
+  box-sizing: border-box;
+}
+
+
+html {
+  font-size: 10px;
+  height: 100%;
+  // line-height: 1.4em;
+  font-family: montserrat, Arial, Helvetica, sans-serif;
+
+  @media (max-width: 420px){
+    font-size: 7.5px;
+  }
+}
+
+body {
+  font-size: 1.5rem;
+  background: url('../images/backgrounds/04.png') repeat-x;
+  background-size: auto;
+  height: 100%;
+  overflow-x: hidden;
+
+  @media (max-width: 420px){
+    font-size: 2.5rem;
+  }
+}
+
+button {
+  border: none;
+  background-color: #de885e;
+  padding: 1rem 1.5rem ;
+  font-size: 1.5rem;
+  margin: 2px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-family: montserrat, Arial, Helvetica, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in;
+
+  @media (max-width: 420px){
+    font-size: 2rem;
+  }
+
+  &:hover {
+    background-color: #cc7043;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: #ca6534;
+  }
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+  min-height: 60rem;
+}
+
+
+.puzzle {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40rem;
+  height: 40rem;
+  position: relative;
+  flex-shrink: 0;
+
+  &__item {  
+    position: absolute;
+    padding: 2px;
+    display: flex;
+    cursor: pointer;
+
+    &_empty {
+      opacity: 0;
+      transition: none;
+    }
+  }
+
+  &__item_inner {
+    flex-basis: 100%;
+    background-color: $color-white;
+    opacity: 0.8;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 2rem;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    @media (max-width: 420px){
+      font-size: 3rem;
+    }
+
+    body.image-puzzle & {
+      background-color: transparent;
+      color: transparent;
+      
+    }
+  }
+
+  body.image-puzzle & {
+    background-color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+  }
+}
+
+.control {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  width: 40rem;
+
+  button {
+    flex-basis: 25%;
+  }
+}
+
+.counter {
+  margin-bottom: 1rem;
+  width: 40rem;
+  text-align: center;
+  color: #ffffff;
+  font-size: 2rem;
+  display: flex;
+
+  @media (max-width: 420px){
+    font-size: 3rem;
+  }
+
+  &__moves,
+  &__time {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__time__digits,
+  &__moves__number {
+    font-size: 3rem;
+    margin-top: 0.5rem;
+
+    @media (max-width: 420px){
+      font-size: 4.5rem;
+    }
+  }
+}
+
+.control-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  opacity: 0;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.3s linear, z-index 0.3s step-end;
+
+  body.overlay & {
+    opacity: 0.95;
+    z-index: 100;
+    transition: opacity 0.3s linear, z-index 0.3s step-start;
+  }
+}
+
+.save-load {
+  opacity: 0;
+  z-index: -999;
+  width: 40rem;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+
+  body.show-save-load & {
+    opacity: 1;
+    z-index: 1;
+    position: static;
+  }
+
+  button {
+    width: 28%;
+    margin: 1%;
+  }
+}
+
+.scores-wrap {
+  opacity: 0;
+  z-index: -999;
+  width: 40rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+
+  body.show-scores & {
+    opacity: 1;
+    z-index: 1;
+    position: static;
+  }
+
+  .scores {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.9rem;
+
+      @media (max-width: 420px){
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+.game-win {
+  opacity: 0;
+  z-index: -999;
+  width: 40rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+
+  body.game-won & {
+    opacity: 1;
+    z-index: 1;
+    position: static;
+  }
+
+  &__text {
+    margin: 1rem;
+
+    @media (max-width: 420px){
+      text-align: center;
+    }
+  }
+}
+
+.game-lose {
+  opacity: 0;
+  z-index: -999;
+  width: 40rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+
+  body.game-lost & {
+    opacity: 1;
+    z-index: 1;
+    position: static;
+  }
+
+  &__text {
+    margin: 1rem;
+
+    @media (max-width: 420px){
+      text-align: center;
+    }
+  }
+}
+
+
+
+.game-create {
+  position: absolute;
+  opacity: 0;
+  z-index: -999;
+  width: 40rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  body.new-game & {
+    opacity: 1;
+    z-index: 1;
+    position: static;
+  }
+
+  &__sizes,
+  &__image-or-number {
+    flex-basis: 50%;
+
+    select {
+      width: 90%;
+      margin: 1rem;
+      padding: 1rem;
+    }
+  }
+
+  button {
+    width: 45%;
+    margin: 2.5%;
+  }
+}
+
+.mute-wrap {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.mute {
+  width: 4rem;
+  height: 4rem;
+  background-image: url('../images/icons/mute.svg');
+  background-position: center center;
+  background-size: 3.5rem 3.5rem;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  pointer-events: all;
+
+  &.mute_disabled {
+    background-image: url('../images/icons/volume.svg');
+  }
+
+  &:focus, &:hover {
+    background-color: transparent;
+  }
+}
+
